@@ -66,13 +66,24 @@
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
                             <div class="btn-group">
-                                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                {{-- <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    class="p-0 btn">
                                     <img width="42" class="rounded-circle"
                                         src="https://ui-avatars.com/api/?name={{auth()->guard('admin_user')->user()->name}}"
                                         alt="">
                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                </a> --}}
+
+                                <a href="{{ route('admin.logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();" {{ __('Logout') }} tabindex="0"
+                                    class="dropdown-item">
+                                    Logout
                                 </a>
-                                <div tabindex="-1" role="menu" aria-hidden="true"
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+
+                                {{-- <div tabindex="-1" role="menu" aria-hidden="true"
                                     class="dropdown-menu dropdown-menu-right">
                                     <button type="button" tabindex="0" class="dropdown-item">User Account</button>
                                     <div tabindex="-1" class="dropdown-divider"></div>
@@ -84,7 +95,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                </div>
+                                </div> --}}
                             </div>
 
                         </div>

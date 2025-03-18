@@ -28,8 +28,12 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
+                        <th class="no-sort">Email</th>
+                        <th class="no-sort">Phone</th>
+                        <th>Ip</th>
+                        <th>User Agent</th>
+                        <th class="no-show">Created At</th>
+                        <th class="no-show">Updated At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -48,6 +52,7 @@
             processing: true,
             serverSide: true,
             ajax: 'admin-user/datatable/ssd',
+            order: [[6, 'desc']],
             columns: [
                 {
                     data: "name",
@@ -62,8 +67,38 @@
                     name: "phone",
                 },
                 {
+                    data: "ip",
+                    name: "ip",
+                },
+                {
+                    data: "user_agent",
+                    name: "user_agent",
+                },
+                {
+                    data: "created_at",
+                    name: "created_at",
+                },
+                {
+                    data: "updated_at",
+                    name: "updated_at",
+                },
+                {
                     data: "action",
                     name: "action",
+                }
+            ],
+            columnDefs: [
+                {
+                    targets: "no-search",
+                    searchable: false
+                },
+                {
+                    targets: "no-sort",
+                    orderable: false
+                },
+                {
+                    targets: "no-show",
+                    visible: false
                 }
             ]
         });
