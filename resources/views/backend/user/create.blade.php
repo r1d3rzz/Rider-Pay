@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
-@section('title', 'Create New Admin User')
-@section('admin-user-active', 'mm-active')
+@section('title', 'Create New User')
+@section('user-active', 'mm-active')
 @section('content')
 
 <div class="app-page-title">
@@ -10,7 +10,7 @@
                 <i class="pe-7s-users icon-gradient bg-mean-fruit">
                 </i>
             </div>
-            <div>Create New Admin User</div>
+            <div>Create New User</div>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{route('admin.admin-user.store')}}" method="POST" id="storeAdmin">
+            <form action="{{route('admin.user.store')}}" method="POST" id="storeUser">
                 @csrf
                 <div class="mb-3">
                     <label for="name">Name</label>
@@ -43,7 +43,7 @@
 
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-secondary btn-back mr-3">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Create Admin User</button>
+                    <button type="submit" class="btn btn-primary">Create User</button>
                 </div>
             </form>
         </div>
@@ -53,5 +53,5 @@
 @endsection
 
 @section("scripts")
-{!! JsValidator::formRequest('App\Http\Requests\StoreAdminRequest', '#storeAdmin'); !!}
+{!! JsValidator::formRequest('App\Http\Requests\StoreUserRequest', '#storeUser'); !!}
 @endsection

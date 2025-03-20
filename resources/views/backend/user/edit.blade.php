@@ -1,39 +1,44 @@
 @extends('backend.layouts.app')
-@section('title', 'Create New Admin User')
-@section('admin-user-active', 'mm-active')
+@section('title', 'Edit Users')
+@section('user-active', 'mm-active')
 @section('content')
 
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
             <div class="page-title-icon">
-                <i class="pe-7s-users icon-gradient bg-mean-fruit">
+                <i class="pe-7s-user icon-gradient bg-mean-fruit">
                 </i>
             </div>
-            <div>Create New Admin User</div>
+            <div>Edit User</div>
         </div>
     </div>
 </div>
 
 <div class="content">
 
+    @include("backend.layouts.flash")
+
     <div class="card">
         <div class="card-body">
-            <form action="{{route('admin.admin-user.store')}}" method="POST" id="storeAdmin">
+            <form action="{{route('admin.user.update', $user->id)}}" method="POST" id="updateUser">
                 @csrf
+                @method("PUT")
                 <div class="mb-3">
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control">
+                    <input type="text" name="name" id="name" class="form-control" value="{{old('name', $user->name)}}">
                 </div>
 
                 <div class="mb-3">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="form-control">
+                    <input type="email" name="email" id="email" class="form-control"
+                        value="{{old('email', $user->email)}}">
                 </div>
 
                 <div class="mb-3">
                     <label for="phone">Phone</label>
-                    <input type="text" name="phone" id="phone" class="form-control">
+                    <input type="text" name="phone" id="phone" class="form-control"
+                        value="{{old('phone', $user->phone)}}">
                 </div>
 
                 <div class="mb-3">
@@ -43,7 +48,7 @@
 
                 <div class="d-flex justify-content-center">
                     <button class="btn btn-secondary btn-back mr-3">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Create Admin User</button>
+                    <button type="submit" class="btn btn-warning">Update User</button>
                 </div>
             </form>
         </div>
@@ -53,5 +58,5 @@
 @endsection
 
 @section("scripts")
-{!! JsValidator::formRequest('App\Http\Requests\StoreAdminRequest', '#storeAdmin'); !!}
+{!! JsValidator::formRequest('App\Http\Requests\UpdateUserRequest', '#updateUser'); !!}
 @endsection

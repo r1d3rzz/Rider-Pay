@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -68,6 +69,17 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
         ]);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $user->ip = $request->ip();
+        $user->user_agent = $request->userAgent("HTTP_USER_AGENT");
+        $user->login_at = date("Y-m-d H:m:s");
+        $user->update();
+
+        return redirect($this->redirectTo);
     }
 }

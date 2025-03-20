@@ -17,7 +17,11 @@ Route::prefix("admin")->name("admin.")->namespace("Backend")->middleware("auth:a
     Route::get("/", "PageController@home")->name("home");
 
     Route::resource("admin-user", "AdminUserController");
-
-    //DataTable
     Route::get("admin-user/datatable/ssd", "AdminUserController@ssd");
+
+    Route::resource("user", "UserController");
+    Route::get("user/datatable/ssd", "UserController@ssd");
+
+    Route::resource("wallet", "WalletController")->only(["index"]);
+    Route::get("wallet/datatable/ssd", "WalletController@ssd");
 });

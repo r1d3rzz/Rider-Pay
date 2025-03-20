@@ -46,6 +46,18 @@
                         Admin Users
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('admin.user.index')}}" class="@yield('user-active')">
+                        <i class="metismenu-icon pe-7s-users"></i>
+                        Users
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('admin.wallet.index')}}" class="@yield('wallet-active')">
+                        <i class="metismenu-icon pe-7s-wallet"></i>
+                        Wallets
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

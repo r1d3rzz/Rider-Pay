@@ -19,6 +19,8 @@ class AdminUser extends Authenticatable
         'email',
         'password',
         'phone',
+        'ip',
+        'user_agent',
     ];
 
     /**
