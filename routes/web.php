@@ -22,4 +22,7 @@ Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm');
 Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login');
 Route::post('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
-Route::get('/', 'Frontend\PageController@index');
+Route::middleware("auth")->namespace("Frontend")->group(function () {
+    Route::get('/', 'PageController@index')->name("home");
+    Route::get('/profile', 'PageController@profile')->name("profile");
+});

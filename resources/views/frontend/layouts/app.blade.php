@@ -8,22 +8,41 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>@yield("title")</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- Fontawesome --}}
+    <script src="https://kit.fontawesome.com/2c87f61656.js" crossorigin="anonymous" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    {{-- Bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div>
+
+        <header>
+            <div class="row justify-content-center bg-light py-2 pt-3">
+                <div class="col-lg-8">
+                    <div class="row text-center align-items-center">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4 h4">
+                            @yield("title")
+                        </div>
+                        <div class="col-lg-4">
+                            <a href="#" class="text-decoration-none btn-theme">
+                                <i class="fa-solid fa-bell"></i><br>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -74,12 +93,53 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container content">
+            <div class="row justify-content-center">
+                <div class="col-lg-11">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <div class="row justify-content-center bg-light py-2 pt-3">
+                <div class="col-lg-8">
+                    <div class="row text-center">
+                        <div class="col-lg-4">
+                            <a href="{{route('home')}}" class="text-decoration-none text-dark">
+                                <i class="fa-solid fa-home"></i><br>
+                                <span>HOME</span>
+                            </a>
+                        </div>
+                        <div class="col-lg-4">
+                            <a href="#" class="text-decoration-none text-dark">
+                                <i class="fa-solid fa-qrcode"></i><br>
+                                <span>SCAN</span>
+                            </a>
+                        </div>
+                        <div class="col-lg-4">
+                            <a href="{{route('profile')}}" class="text-decoration-none text-dark">
+                                <i class="fa-solid fa-user"></i><br>
+                                <span>ACCOUNT</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
+
+    {{-- Bootstrap --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+    </script>
+
+    @yield("scripts")
 </body>
 
 </html>

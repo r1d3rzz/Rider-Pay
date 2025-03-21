@@ -1,0 +1,50 @@
+* {
+    font-size: 15px;
+}
+
+.btn {
+    padding: 10px;
+}
+
+body {
+    background-color: #ededf5;
+}
+
+.btn-theme {
+    color: #5842e3;
+    border-radius: 10px;
+}
+
+.auth-form {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.09);
+}
+
+/*----------------- Header -----------------*/
+
+header {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/*----------------- Content -----------------*/
+
+.content {
+    margin-top: 70px;
+}
+
+/*----------------- Footer -----------------*/
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+footer,
+header .fa-solid {
+    font-size: 20px;
+}
