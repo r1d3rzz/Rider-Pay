@@ -25,4 +25,6 @@ Route::post('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.log
 Route::middleware("auth")->namespace("Frontend")->group(function () {
     Route::get('/', 'PageController@index')->name("home");
     Route::get('/profile', 'PageController@profile')->name("profile");
+    Route::get('/password_update', 'PageController@passwordUpdate')->name("password_update");
+    Route::post('/password_update', 'PageController@updatePasswordUpdate')->name("update_password_update");
 });

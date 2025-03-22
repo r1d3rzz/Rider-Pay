@@ -28,7 +28,11 @@
             <div class="row justify-content-center bg-light py-2 pt-3">
                 <div class="col-lg-8">
                     <div class="row text-center align-items-center">
-                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            @if (!request()->is("/"))
+                            <i id="btn-back" class="fa-solid fa-chevron-left" style="cursor: pointer"></i>
+                            @endif
+                        </div>
                         <div class="col-lg-4 h4">
                             @yield("title")
                         </div>
@@ -131,12 +135,57 @@
         </footer>
     </div>
 
+
     {{-- Bootstrap --}}
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+    <!-- Laravel Javascript Validation -->
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+    </script>
+
+    <!-- Sweet Alert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            $("#btn-back").on("click", function(e){
+                e.preventDefault();
+                window.history.go(-1);
+                return false;
+            })
+
+            //sweet alert2 for config
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                },
+            });
+
+            @if (session("update"))
+                Toast.fire({
+                icon: "success",
+                title: "{{session('update')}}",
+            });
+            @endif
+        })
     </script>
 
     @yield("scripts")
