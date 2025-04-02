@@ -1,6 +1,6 @@
 @extends("frontend.layouts.app")
 
-@section("title", "Password Update")
+@section("title", "Password")
 @section("content")
 
 <div class="row justify-content-center my-3">

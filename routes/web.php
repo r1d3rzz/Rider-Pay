@@ -27,4 +27,16 @@ Route::middleware("auth")->namespace("Frontend")->group(function () {
     Route::get('/profile', 'PageController@profile')->name("profile");
     Route::get('/password_update', 'PageController@passwordUpdate')->name("password_update");
     Route::post('/password_update', 'PageController@updatePasswordUpdate')->name("update_password_update");
+
+    Route::get('/wallet', 'PageController@userWallet')->name("wallet");
+
+    Route::prefix("transfer")->group(function () {
+        Route::get('/', 'PageController@transfer')->name("transfer");
+        Route::post('confirm', 'PageController@transfer_confirm')->name("transfer.confirm");
+        Route::post('continue', 'PageController@transfer_continue')->name("transfer.continue");
+
+        Route::get('/phoneVerify', 'PageController@phoneVerify')->name("transfer.phoneVerify");
+        Route::get('/passwordVerify', 'PageController@passwordVerify')->name("transfer.passwordVerify");
+        Route::get('/makeTransaction', 'PageController@makeTransaction')->name("transfer.makeTransaction");
+    });
 });

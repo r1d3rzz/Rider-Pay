@@ -24,27 +24,7 @@
 <body>
     <div>
 
-        <header>
-            <div class="row justify-content-center bg-light py-2 pt-3">
-                <div class="col-lg-8">
-                    <div class="row text-center align-items-center">
-                        <div class="col-lg-4">
-                            @if (!request()->is("/"))
-                            <i id="btn-back" class="fa-solid fa-chevron-left" style="cursor: pointer"></i>
-                            @endif
-                        </div>
-                        <div class="col-lg-4 h4">
-                            @yield("title")
-                        </div>
-                        <div class="col-lg-4">
-                            <a href="#" class="text-decoration-none btn-theme">
-                                <i class="fa-solid fa-bell"></i><br>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
+        @extends("frontend.layouts.header")
 
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -107,32 +87,8 @@
             </div>
         </div>
 
-        <footer>
-            <div class="row justify-content-center bg-light py-2 pt-3">
-                <div class="col-lg-8">
-                    <div class="row text-center">
-                        <div class="col-lg-4">
-                            <a href="{{route('home')}}" class="text-decoration-none text-dark">
-                                <i class="fa-solid fa-home"></i><br>
-                                <span>HOME</span>
-                            </a>
-                        </div>
-                        <div class="col-lg-4">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <i class="fa-solid fa-qrcode"></i><br>
-                                <span>SCAN</span>
-                            </a>
-                        </div>
-                        <div class="col-lg-4">
-                            <a href="{{route('profile')}}" class="text-decoration-none text-dark">
-                                <i class="fa-solid fa-user"></i><br>
-                                <span>ACCOUNT</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        @extends("frontend.layouts.footer")
+
     </div>
 
 
