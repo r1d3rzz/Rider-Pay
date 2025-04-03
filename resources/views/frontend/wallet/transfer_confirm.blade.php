@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" readonly>{{$description}}</textarea>
+            <textarea class="form-control" id="description" readonly>{{$description}}</textarea>
         </div>
 
         <div>
@@ -60,13 +60,14 @@
                         data: {password},
                         success: function(res){
                             if(res.status === 200){
-                                receiverPhone = $("#receiverPhone").val();
-                                amount = {{$amount}};
+                                const receiverPhone = $("#receiverPhone").val();
+                                const amount = {{$amount}};
+                                const description = $("#description").val();
 
                                 $.ajax({
                                     url: "{{route('transfer.makeTransaction')}}",
                                     type: "GET",
-                                    data: {receiverPhone, amount },
+                                    data: {receiverPhone, amount, description },
                                     success: function(response){
                                         if(response.status === 200){
                                             Swal.fire({

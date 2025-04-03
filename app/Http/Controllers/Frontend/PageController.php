@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\UUIDGenerator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
+use App\Transaction;
 use App\User;
 use App\Wallet;
 use ErrorException;
@@ -120,6 +122,7 @@ class PageController extends Controller
     {
         $receiverPhone = $request->receiverPhone;
         $amount = $request->amount;
+        $description = $request->description;
 
         DB::beginTransaction();
 
@@ -147,10 +150,31 @@ class PageController extends Controller
                 $senderWallet->decrement("amount", $amount);
                 $senderWallet->update();
 
-
                 $receiverWallet = $receiver->wallet;
                 $receiverWallet->increment("amount", $amount);
                 $receiverWallet->update();
+
+                $refNumber = UUIDGenerator::GenerateRefNumber();
+
+                $senderTxn = new Transaction();
+                $senderTxn->ref_no = $refNumber;
+                $senderTxn->txn_id = UUIDGenerator::GenerateTxnNumber();
+                $senderTxn->user_id = $sender->id;
+                $senderTxn->source_id = $receiver->id;
+                $senderTxn->type = 2;
+                $senderTxn->amount = $amount;
+                $senderTxn->description = $description;
+                $senderTxn->save();
+
+                $receiverTxn = new Transaction();
+                $receiverTxn->ref_no = $refNumber;
+                $receiverTxn->txn_id = UUIDGenerator::GenerateTxnNumber();
+                $receiverTxn->user_id = $receiver->id;
+                $receiverTxn->source_id = $sender->id;
+                $receiverTxn->type = 1;
+                $receiverTxn->amount = $amount;
+                $receiverTxn->description = $description;
+                $receiverTxn->save();
 
                 DB::commit();
 

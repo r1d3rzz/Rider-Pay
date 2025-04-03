@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Transaction;
 use App\Wallet;
 
 class UUIDGenerator
@@ -12,6 +13,29 @@ class UUIDGenerator
 
         if (Wallet::where("account_number", $number)->exists()) {
             self::GenerateCardNumber();
+        }
+
+        return $number;
+    }
+
+    public static function GenerateRefNumber(): int
+    {
+        $number = mt_rand(100000000, 999999999);
+
+        if (Transaction::where("ref_no", $number)->exists()) {
+            self::GenerateRefNumber();
+        }
+
+        return $number;
+    }
+
+
+    public static function GenerateTxnNumber(): int
+    {
+        $number = mt_rand(100000000, 999999999);
+
+        if (Transaction::where("txn_id", $number)->exists()) {
+            self::GenerateTxnNumber();
         }
 
         return $number;
