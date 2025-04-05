@@ -73,7 +73,7 @@
                                             Swal.fire({
                                                 text: response.message,
                                                 icon: "success"
-                                            }).then(() => window.location.href = '/');
+                                            }).then(() => window.location.href = `/transfer/transactions/${response.txn_id}`);
                                         }else{
                                             Swal.fire({
                                                 text: response.message,

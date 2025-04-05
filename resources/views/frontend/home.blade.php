@@ -14,6 +14,7 @@
             </div>
         </div>
 
+        @if ($user->wallet)
         <div class="mb-3 d-flex" style="gap: 10px">
             <div class="card card-body p-2 mb-md-0">
                 <div>
@@ -22,10 +23,12 @@
                 </div>
             </div>
             <div class="card card-body p-2">
-                <div>
-                    <img class="mr-2" src="{{asset('frontend/svg/qr-code.svg')}}" width="40" alt="">
-                    <span>Receive QR</span>
-                </div>
+                <a href="{{route('transfer.receive_qr')}}" class="text-decoration-none text-dark">
+                    <div>
+                        <img class="mr-2" src="{{asset('frontend/svg/qr-code.svg')}}" width="40" alt="">
+                        <span>Receive QR</span>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -56,7 +59,7 @@
                 </a>
                 <hr>
 
-                <a href="{{route('password_update')}}" class="text-decoration-none text-dark">
+                <a href="{{route('transfer.transactions')}}" class="text-decoration-none text-dark">
                     <div class="d-flex justify-content-between">
                         <div>
                             <i class="fa-solid fa-arrow-right-arrow-left mr-1"></i>
@@ -70,6 +73,7 @@
 
             </div>
         </div>
+        @endif
     </div>
 </div>
 

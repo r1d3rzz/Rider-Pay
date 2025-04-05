@@ -35,6 +35,11 @@ Route::middleware("auth")->namespace("Frontend")->group(function () {
         Route::post('confirm', 'PageController@transfer_confirm')->name("transfer.confirm");
         Route::post('continue', 'PageController@transfer_continue')->name("transfer.continue");
 
+        Route::get("transactions", "PageController@transactions")->name("transfer.transactions");
+        Route::get("transactions/{txn_id}", "PageController@transaction_detail")->name("transfer.transaction_detail");
+
+        Route::get("receive_qr", "PageController@receive_qr")->name("transfer.receive_qr");
+
         Route::get('/phoneVerify', 'PageController@phoneVerify')->name("transfer.phoneVerify");
         Route::get('/passwordVerify', 'PageController@passwordVerify')->name("transfer.passwordVerify");
         Route::get('/makeTransaction', 'PageController@makeTransaction')->name("transfer.makeTransaction");

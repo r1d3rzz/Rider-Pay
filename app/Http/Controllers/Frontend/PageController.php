@@ -57,15 +57,48 @@ class PageController extends Controller
     public function transfer()
     {
         $user = Auth::guard("web")->user();
+        $userWallet = Wallet::where("user_id", $user->id)->first();
+        if (!$userWallet) {
+            return redirect("/");
+        }
         return view("frontend.wallet.transfer", compact(["user"]));
+    }
+
+    public function transactions(Request $request)
+    {
+        $authUserId = auth()->id();
+        $transactions = Transaction::with(["user", "source"])->where("user_id", $authUserId);
+        if ($request->type && $request->type != "all") {
+            $transactions = $transactions->where("type", $request->type);
+        }
+
+        if ($request->date) {
+            $transactions = $transactions->whereDate("created_at", $request->date);
+        }
+        $transactions = $transactions->latest()->paginate(5);
+        return view("frontend.wallet.transactions", compact(["transactions"]));
+    }
+
+    public function transaction_detail($txn_id)
+    {
+        $transaction = Transaction::with("source")->where("txn_id", $txn_id)->first();
+        return view("frontend.wallet.transaction_detail", compact(["transaction"]));
     }
 
     public function transfer_confirm(Request $request)
     {
         $user = Auth::guard("web")->user();
+        $userWallet = Wallet::where("user_id", $user->id)->first();
+
         $to_phone = $request->to_phone;
         $amount = $request->amount;
         $description = $request->description;
+
+        if ($user->wallet->amount < $amount) {
+            return back()->withErrors([
+                "amount" => "Your Balance is not enough!"
+            ])->withInput();
+        }
 
         if ($amount < 1000) {
             return back()->withErrors([
@@ -79,11 +112,6 @@ class PageController extends Controller
             "amount",
             "description"
         ]));
-    }
-
-    public function transfer_continue(Request $request)
-    {
-        dd($request->all());
     }
 
     public function phoneVerify(Request $request)
@@ -180,6 +208,7 @@ class PageController extends Controller
 
                 return response()->json([
                     "status" => 200,
+                    "txn_id" => $senderTxn->txn_id,
                     "message" => "Transaction Success",
                 ]);
             } else {
@@ -192,5 +221,11 @@ class PageController extends Controller
                 "message" => $th->getMessage(),
             ]);
         }
+    }
+
+    public function receive_qr()
+    {
+        $user = auth()->user();
+        return view("frontend.wallet.receive_qr", compact(["user"]));
     }
 }

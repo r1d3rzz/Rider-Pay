@@ -15,4 +15,14 @@ class Transaction extends Model
         "amount",
         "description",
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, "user_id", "id");
+    }
+
+    public function source()
+    {
+        return $this->belongsTo(User::class, "source_id", "id");
+    }
 }
