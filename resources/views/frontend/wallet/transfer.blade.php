@@ -18,7 +18,8 @@
         <div class="form-group">
             <label for="to_phone">Phone No.</label>
             <div class="input-group">
-                <input type="text" name="to_phone" id="to_phone" class="form-control" value="{{old('to_phone')}}">
+                <input type="text" name="to_phone" id="to_phone" class="form-control"
+                    value="{{old('to_phone', request()->scanQr)}}">
                 <span class="input-group-text" style="cursor: pointer;" title="check phone number"
                     id="phoneNumberVerify">
                     <i class="fa-solid fa-check-circle"></i>
@@ -73,7 +74,13 @@
                     }
                 });
             }
-        })
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const scanQr = params.get('scanQr');
+        if(scanQr){
+            $("#phoneNumberVerify").click();
+        }
     });
 </script>
 

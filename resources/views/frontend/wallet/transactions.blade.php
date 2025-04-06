@@ -30,7 +30,7 @@
 </div>
 
 <div class="infinite-scroll mb-5">
-    @forelse ($transactions as $transaction)
+    @foreach ($transactions as $transaction)
     <div class="card card-body mb-2 transaction" data-txn_id="{{$transaction->txn_id}}">
         <div class="row d-flex no-warp justify-content-between px-2 align-items-center">
             <div class="d-flex justify-content-center">
@@ -52,21 +52,22 @@
             </div>
         </div>
     </div>
-    @empty
-    <div class="d-flex flex-column justify-content-center align-items-center" style="height: 60vh; gap: 10px;">
-        <img src="{{asset('frontend/svg/undraw_no-data_ig65.svg')}}" width="80%" alt="">
-        <div style="font-size: 1.5rem" class="text-muted">Empty Transaction</div>
-    </div>
-    @endforelse
-
+    @endforeach
     {{$transactions->links()}}
 </div>
 
-@endsection
+@if (count($transactions) < 1) <div class="d-flex flex-column justify-content-center align-items-center"
+    style="height: 60vh; gap: 10px;">
+    <img src="{{asset('frontend/svg/undraw_no-data_ig65.svg')}}" width="80%" alt="">
+    <div style="font-size: 1.5rem" class="text-muted">Empty Transaction</div>
+    </div>
+    @endif
 
-@section("scripts")
-<script>
-    $(document).ready(function(){
+    @endsection
+
+    @section("scripts")
+    <script>
+        $(document).ready(function(){
         $(document).on("click", ".transaction", function(){
             const txn_id = $(this).data("txn_id");
             window.location.href = `/transfer/transactions/${txn_id}`;
@@ -115,5 +116,5 @@
             window.location.reload();
         })
     });
-</script>
-@endsection
+    </script>
+    @endsection

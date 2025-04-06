@@ -54,7 +54,7 @@ class PageController extends Controller
         return view("frontend.wallet.wallet", compact(["user"]));
     }
 
-    public function transfer()
+    public function transfer(Request $request)
     {
         $user = Auth::guard("web")->user();
         $userWallet = Wallet::where("user_id", $user->id)->first();
@@ -74,6 +74,8 @@ class PageController extends Controller
 
         if ($request->date) {
             $transactions = $transactions->whereDate("created_at", $request->date);
+        } else {
+            $transactions = $transactions->whereDate("created_at", date("Y-m-d"));
         }
         $transactions = $transactions->latest()->paginate(5);
         return view("frontend.wallet.transactions", compact(["transactions"]));
