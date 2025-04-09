@@ -44,4 +44,9 @@ Route::middleware("auth")->namespace("Frontend")->group(function () {
         Route::get('/passwordVerify', 'PageController@passwordVerify')->name("transfer.passwordVerify");
         Route::get('/makeTransaction', 'PageController@makeTransaction')->name("transfer.makeTransaction");
     });
+
+    Route::prefix("notifications")->group(function () {
+        Route::get("/", "NotificationController@index")->name("notifications");
+        Route::get("/{id}", "NotificationController@show")->name("notifications.show");
+    });
 });

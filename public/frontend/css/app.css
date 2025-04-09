@@ -91,6 +91,12 @@ header {
     right: 0;
 }
 
+.noti_badge {
+    position: absolute;
+    top: -11px;
+    right: -6px;
+}
+
 /*----------------- Content -----------------*/
 
 .content {
@@ -147,4 +153,9 @@ header .fa-solid {
 
 .card-info-value {
     font-size: 23px;
+}
+
+/*----------------- Notification -----------------*/
+.afterRead {
+    opacity: 0.5;
 }

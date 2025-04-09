@@ -3,7 +3,7 @@
         <div class="col-lg-8">
             <div class="row text-center px-2 px-md-0 d-flex justify-content-between align-items-center">
                 <div class="col-3 text-left">
-                    @if (!request()->is("/"))
+                    @if (!request()->is('/') && !str_contains(request()->path(), 'notifications/'))
                     <i id="btn-back" class="fa-solid fa-chevron-left" style="cursor: pointer"></i>
                     @endif
                 </div>
@@ -11,8 +11,12 @@
                     @yield("title")
                 </div>
                 <div class="col-3 text-right">
-                    <a href="#" class="text-decoration-none btn-theme">
-                        <i class="fa-solid fa-bell"></i><br>
+                    <a href="{{route('notifications')}}" style="position: relative;"
+                        class="text-decoration-none btn-theme position-relative">
+                        <i class="fa-solid fa-bell"></i>
+                        @if($unreadNotificationsCount > 0)
+                        <span class="badge badge-pill badge-secondary noti_badge">{{$unreadNotificationsCount}}</span>
+                        @endif
                     </a>
                 </div>
             </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Helpers\MakeSecretValue;
+use App\Helpers\SendNotification;
 use App\Helpers\UUIDGenerator;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
@@ -42,6 +44,9 @@ class PageController extends Controller
         if (Hash::check($request->current_password, $user->password)) {
             $user->password = Hash::make($request->new_password);
             $user->update();
+
+            SendNotification::send($user, "Password Updated Success", "Hi " . $user->name . " your password is updated successfully.", $user->id, User::class, url("/profile"));
+
             return redirect()->route('profile')->with("update", "Password Updated Success");
         }
 
@@ -196,6 +201,7 @@ class PageController extends Controller
                 $senderTxn->description = $description;
                 $senderTxn->save();
 
+
                 $receiverTxn = new Transaction();
                 $receiverTxn->ref_no = $refNumber;
                 $receiverTxn->txn_id = UUIDGenerator::GenerateTxnNumber();
@@ -205,6 +211,9 @@ class PageController extends Controller
                 $receiverTxn->amount = $amount;
                 $receiverTxn->description = $description;
                 $receiverTxn->save();
+
+                SendNotification::send($sender, "Transfer", "Your wallet transferred " . $amount . " MMK to " . $receiver->name . " ( " . MakeSecretValue::coverPhoneNumber($receiver->phone) . " )", $senderTxn->id, Transaction::class, url("/transfer/transactions/" . $senderTxn->txn_id));
+                SendNotification::send($receiver, "Received", "Your wallet received " . $amount . " MMK from " . $sender->name . " ( " . MakeSecretValue::coverPhoneNumber($sender->phone) . " )", $receiverTxn->id, Transaction::class, url("/transfer/transactions/" . $receiverTxn->txn_id));
 
                 DB::commit();
 
