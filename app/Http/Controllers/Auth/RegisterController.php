@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\UUIDGenerator;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Wallet;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -65,12 +68,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        DB::beginTransaction();
+
+
+        $formData = [
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
+        ];
+
+        $user = User::create($formData);
+
+        Wallet::firstOrCreate([
+            "user_id" => $user->id, //for condition
+        ], [
+            "account_number" => UUIDGenerator::GenerateCardNumber(),
+            "amount" => 0
         ]);
+
+        DB::commit();
+
+        return $user;
     }
 
     protected function registered(Request $request, $user)

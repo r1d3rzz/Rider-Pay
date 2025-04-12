@@ -1,3 +1,4 @@
+@auth
 <footer>
     <div class="row justify-content-center bg-light py-2 pt-3">
         <div class="col-lg-8">
@@ -39,3 +40,4 @@
         </div>
     </div>
 </footer>
+@endauth
