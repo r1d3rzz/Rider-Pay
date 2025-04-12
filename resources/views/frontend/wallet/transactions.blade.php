@@ -11,7 +11,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-calendar-days"></i></span>
                 </div>
-                <input type="text" value="{{request()->date ?? date('Y-m-d')}}" class="form-control" id="dateFilter">
+                <input type="text" value="{{request()->date}}" class="form-control" id="dateFilter" placeholder="All">
             </div>
         </div>
         <div class="col-5">
@@ -58,7 +58,7 @@
 
 @if (count($transactions) < 1) <div class="d-flex flex-column justify-content-center align-items-center"
     style="height: 60vh; gap: 10px;">
-    <img src="{{asset('frontend/svg/undraw_no-data_ig65.svg')}}" width="80%" alt="">
+    <img src="{{asset('frontend/svg/undraw_no-data_ig65.svg')}}" width="300" alt="">
     <div style="font-size: 1.5rem" class="text-muted">Empty Transaction</div>
     </div>
     @endif
@@ -95,7 +95,8 @@
 
         $('#dateFilter').daterangepicker({
             "singleDatePicker": true,
-            "autoApply": true,
+            "autoUpdateInput": false,
+            "autoApply": false,
             "locale": {
                 "format": "YYYY-MM-DD",
                 "separator": " - ",
@@ -109,12 +110,21 @@
             },
         });
 
-        $("#dateFilter").on("apply.daterangepicker",function(){
+        $("#dateFilter").on("apply.daterangepicker",function(ev, picker){
+            $(this).val(picker.startDate.format("YYYY-MM-DD"));
             const date = $('#dateFilter').val();
             const type = $("#typeFilter").val();
             history.pushState(null, "", "?date="+date+"&type="+type);
             window.location.reload();
-        })
+        });
+
+        $("#dateFilter").on("cancel.daterangepicker",function(ev, picker){
+            $(this).val("");
+            const date = $('#dateFilter').val();
+            const type = $("#typeFilter").val();
+            history.pushState(null, "", "?date="+date+"&type="+type);
+            window.location.reload();
+        });
     });
     </script>
     @endsection

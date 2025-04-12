@@ -22,5 +22,10 @@ Route::namespace("Api")->group(function () {
         Route::post("logout", "AuthController@logout");
 
         Route::get("profile", "PageController@profile");
+
+        Route::prefix("transactions")->group(function () {
+            Route::get("/", "PageController@transactions");
+            Route::get("/{txn_id}", "PageController@transactionDetail");
+        });
     });
 });

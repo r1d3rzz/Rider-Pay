@@ -79,9 +79,8 @@ class PageController extends Controller
 
         if ($request->date) {
             $transactions = $transactions->whereDate("created_at", $request->date);
-        } else {
-            $transactions = $transactions->whereDate("created_at", date("Y-m-d"));
         }
+
         $transactions = $transactions->latest()->paginate(5);
         return view("frontend.wallet.transactions", compact(["transactions"]));
     }

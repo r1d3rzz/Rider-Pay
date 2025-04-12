@@ -19,7 +19,9 @@ class ProfileResource extends JsonResource
             "email" => $this->email,
             "phone" => $this->phone,
             "account" => $this->wallet ? $this->wallet->account_number : null,
-            "amount" => $this->wallet ? number_format($this->wallet->amount) : null,
+            "balance" => $this->wallet ? number_format($this->wallet->amount) : null,
+            "profile" => asset("img/profile.png"),
+            "hash_value" => $this->phone,
         ];
     }
 }
