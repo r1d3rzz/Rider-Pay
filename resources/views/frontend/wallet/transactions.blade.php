@@ -38,9 +38,17 @@
                 <div><img src="{{asset('frontend/svg/transaction-svgrepo-com.svg')}}" width="20" alt=""></div>
             </div>
             <div>
+                @php
+                $source = null;
+                if($transaction->senderType == 0){
+                $source = $transaction->admin;
+                }else{
+                $source = $transaction->source;
+                }
+                @endphp
                 <div class="padauk-regular"> {{$transaction->type == 1 ? "ပေးပို့သူ" : "ငွေလွှဲမည် သို့
                     "}} <span class="sourcePhone">{{
-                        App\Helpers\MakeSecretValue::coverPhoneNumber($transaction->source->phone) }}</span>
+                        App\Helpers\MakeSecretValue::coverPhoneNumber($source->phone) }}</span>
                 </div>
                 <div class="poppins-regular"><small>{{$transaction->created_at}}</small></div>
             </div>

@@ -117,7 +117,7 @@ class WalletController extends Controller
                 $senderTxn->txn_id = UUIDGenerator::GenerateTxnNumber();
                 $senderTxn->user_id = $sender->id;
                 $senderTxn->source_id = $sender->id;
-                $senderTxn->type = 1;
+                $senderTxn->type = 2;
                 $senderTxn->senderType = 0;
                 $senderTxn->amount = $amount;
                 $senderTxn->description = $description;
