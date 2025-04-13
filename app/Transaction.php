@@ -25,4 +25,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, "source_id", "id");
     }
+
+    public function admin()
+    {
+        return $this->belongsTo(AdminUser::class, "source_id", "id");
+    }
 }

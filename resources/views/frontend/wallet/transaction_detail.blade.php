@@ -33,8 +33,16 @@
                     </tr>
                     <tr>
                         <th class="padauk-regular" style="font-weight: 700">ပေးပို့သူ</th>
-                        <td class="text-right">{{$transaction->source ? $transaction->source->name . " " . "(".
-                            App\Helpers\MakeSecretValue::coverPhoneNumber($transaction->source->phone) .")" :
+                        @php
+                        $source = null;
+                        if($transaction->senderType == 0){
+                        $source = $transaction->admin;
+                        }else{
+                        $source = $transaction->source;
+                        }
+                        @endphp
+                        <td class="text-right">{{$source ? $source->name . " " . "(".
+                            App\Helpers\MakeSecretValue::coverPhoneNumber($source->phone) .")" :
                             "-"}}</td>
                     </tr>
                     <tr>

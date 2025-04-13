@@ -15,6 +15,13 @@
     </div>
 </div>
 
+<div class="mb-3">
+    <a href="{{route('admin.wallet.addAmount')}}" class="btn btn-primary"><i class="fas fa-plus-circle mr-2"></i> Add
+        Wallet Amount</a>
+    <a href="{{route('admin.wallet.reduceAmount')}}" class="btn btn-danger"><i class="fas fa-minus-circle mr-2"></i>
+        Reduce Wallet Amount</a>
+</div>
+
 <div class="content">
 
     <div class="card">

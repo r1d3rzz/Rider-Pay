@@ -28,7 +28,9 @@ Route::middleware("auth")->namespace("Frontend")->group(function () {
     Route::get('/password_update', 'PageController@passwordUpdate')->name("password_update");
     Route::post('/password_update', 'PageController@updatePasswordUpdate')->name("update_password_update");
 
-    Route::get('/wallet', 'PageController@userWallet')->name("wallet");
+    Route::prefix("wallet")->group(function () {
+        Route::get('/', 'PageController@userWallet')->name("wallet");
+    });
 
     Route::prefix("transfer")->group(function () {
         Route::get('/', 'PageController@transfer')->name("transfer");
@@ -36,7 +38,7 @@ Route::middleware("auth")->namespace("Frontend")->group(function () {
         Route::post('continue', 'PageController@transfer_continue')->name("transfer.continue");
 
         Route::get("transactions", "PageController@transactions")->name("transfer.transactions");
-        Route::get("transactions/{txn_id}", "PageController@transaction_detail")->name("transfer.transaction_detail");
+        Route::get("transactions/{txn_id}/{sender_type}", "PageController@transaction_detail")->name("transfer.transaction_detail");
 
         Route::get("receive_qr", "PageController@receive_qr")->name("transfer.receive_qr");
 

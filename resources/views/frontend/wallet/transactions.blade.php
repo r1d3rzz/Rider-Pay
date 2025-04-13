@@ -31,7 +31,8 @@
 
 <div class="infinite-scroll mb-5">
     @foreach ($transactions as $transaction)
-    <div class="card card-body mb-2 transaction" data-txn_id="{{$transaction->txn_id}}">
+    <div class="card card-body mb-2 transaction" data-txn_id="{{$transaction->txn_id}}"
+        data-senderType="{{$transaction->senderType}}">
         <div class="row d-flex no-warp justify-content-between px-2 align-items-center">
             <div class="d-flex justify-content-center">
                 <div><img src="{{asset('frontend/svg/transaction-svgrepo-com.svg')}}" width="20" alt=""></div>
@@ -70,7 +71,8 @@
         $(document).ready(function(){
         $(document).on("click", ".transaction", function(){
             const txn_id = $(this).data("txn_id");
-            window.location.href = `/transfer/transactions/${txn_id}`;
+            const senderType = $(this).data("sendertype");
+            window.location.href = `/transfer/transactions/${txn_id}/${senderType}`;
         });
 
         $('ul.pagination').hide();

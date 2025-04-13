@@ -85,9 +85,10 @@ class PageController extends Controller
         return view("frontend.wallet.transactions", compact(["transactions"]));
     }
 
-    public function transaction_detail($txn_id)
+    public function transaction_detail($txn_id, $sender_type)
     {
-        $transaction = Transaction::with("source")->where("txn_id", $txn_id)->first();
+        $source = $sender_type != 0 ? "source" : "admin";
+        $transaction = Transaction::with($source)->where("txn_id", $txn_id)->first();
         return view("frontend.wallet.transaction_detail", compact(["transaction"]));
     }
 
